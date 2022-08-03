@@ -9,7 +9,7 @@
 >> - [x] Instalar o ESLint e o StyleLint
 >> - [x] Instalação do Styled Components
 >> - [x] Instalação do React Router Dom V6
->> - [] Instalação da Biblioteca de Icons React Phosphor Icons
+>> - [x] Instalação da Biblioteca de Icons React Phosphor Icons
 >> - [] Configurar estrutura de pasta do projeto
 >> - [] Configurar as Rotas do projeto
 >> - [] Configurar a Biblioteca Styled COmponents na aplicação junto com suas Tipagens
