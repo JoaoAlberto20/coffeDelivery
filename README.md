@@ -1,6 +1,6 @@
 # coffeeDelivery
 
-# Projeto do meu portifólio
+# Projeto do coffeDElivery
 
 ### Lista de taréfas a fazer:
 > ### Dependências
