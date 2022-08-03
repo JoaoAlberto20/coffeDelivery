@@ -8,7 +8,7 @@
 >> - [x] Usar o Create Vite App para iniciar um projeto REACT como o Template TypeScripts
 >> - [x] Instalar o ESLint e o StyleLint
 >> - [x] Instalação do Styled Components
->> - [] Instalação do React Router Dom V6
+>> - [x] Instalação do React Router Dom V6
 >> - [] Instalação da Biblioteca de Icons React Phosphor Icons
 >> - [] Configurar estrutura de pasta do projeto
 >> - [] Configurar as Rotas do projeto
