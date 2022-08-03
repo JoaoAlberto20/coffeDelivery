@@ -7,7 +7,7 @@
 >> - [x] Criar um repositório no github
 >> - [x] Usar o Create Vite App para iniciar um projeto REACT como o Template TypeScripts
 >> ***Jest não é instalado automático***
->> - [] Instalar o ESLint e o StyleLint
+>> - [x] Instalar o ESLint e o StyleLint
 >> - [] Instalação do Styled Components (v2.5.0-beta.1 (Bootstrap 5.2))
 >> - [] Instalação do React Router Dom V6
 >> - [] Instalação da Biblioteca de Icons React Phosphor Icons
