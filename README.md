@@ -10,10 +10,9 @@
 >> - [x] Instalação do Styled Components
 >> - [x] Instalação do React Router Dom V6
 >> - [x] Instalação da Biblioteca de Icons React Phosphor Icons
->> - [] Configurar estrutura de pasta do projeto
+>> - [x] Configurar estrutura de pasta do projeto
+>> - [x] Configurar a Biblioteca Styled Components na aplicação junto com suas Tipagens
 >> - [] Configurar as Rotas do projeto
->> - [] Configurar a Biblioteca Styled COmponents na aplicação junto com suas Tipagens
->> 
 >> - [] Configurar O Context API para gerenciamento do estado global da aplicação
 >
 > ### Dependencias de Test
