@@ -4,7 +4,7 @@ import {
   ContainerHeader,
   ContainerLinkCart,
   ContainerLinkMap,
-  ContainerNav
+  ContainerNav,
 } from './styles'
 
 export function Header() {
@@ -14,12 +14,12 @@ export function Header() {
 
       <ContainerNav>
         <ContainerLinkMap to="">
-          <MapPin size={24} />
+          <MapPin size={24} weight="fill" />
           Porto Alegre, RS
         </ContainerLinkMap>
 
         <ContainerLinkCart to="/checkout">
-          <ShoppingCart size={24} fill="#C47F17" />
+          <ShoppingCart size={24} weight="fill" />
         </ContainerLinkCart>
       </ContainerNav>
     </ContainerHeader>

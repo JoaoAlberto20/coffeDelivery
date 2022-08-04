@@ -32,8 +32,4 @@ export const ContainerLinkMap = styled(NavLink)`
 export const ContainerLinkCart = styled(NavLink)`
   background: ${(props) => props.theme['yellow-light']};
   color: ${(props) => props.theme['yellow-dark']};
-
-  &:first-child {
-    background: ${(props) => props.theme['yellow-dark']};
-  }
 `
