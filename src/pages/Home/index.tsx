@@ -3,11 +3,15 @@ import {
   ContainerBanner,
   ContainerHome,
   ContainerItems,
+  ContainerListCard,
+  ContainerListCoffee,
   ContainerTitle,
   Items,
 } from './styles'
 
 import banner from '../../assets/Banner.png'
+import { CardCoffee } from '../../components/CardCoffee'
+import { coffeeList } from '../../utils'
 
 export function Home() {
   return (
@@ -43,6 +47,22 @@ export function Home() {
           <img src={banner} alt="" />
         </div>
       </ContainerBanner>
+      <ContainerListCoffee>
+        <h2>Nossos cafés</h2>
+        <ContainerListCard>
+          {coffeeList.map((listCoffee) => (
+            <CardCoffee
+              key={listCoffee.id}
+              id={listCoffee.id}
+              name={listCoffee.name}
+              price={listCoffee.price}
+              description={listCoffee.description}
+              image={listCoffee.image}
+              tag={listCoffee.tag}
+            />
+          ))}
+        </ContainerListCard>
+      </ContainerListCoffee>
     </ContainerHome>
   )
 }

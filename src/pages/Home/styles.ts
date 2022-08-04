@@ -9,7 +9,6 @@ export const ContainerBanner = styled.section`
   display: flex;
   padding: 5.875rem 0 6.75rem 0;
   gap: 3.5rem;
-  height: 34rem;
 `
 
 export const ContainerTitle = styled.div`
@@ -70,4 +69,20 @@ export const Items = styled.span<BgProps>`
     border-radius: 1000px;
     color: ${(props) => props.theme.white};
   }
+`
+export const ContainerListCoffee = styled.section`
+  padding-top: 2rem;
+
+  > h2 {
+    font-size: 2rem;
+    line-height: 130%;
+    font-weight: 800;
+    font-family: 'Baloo 2', cursive;
+  }
+`
+
+export const ContainerListCard = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+  margin-top: 3.375rem;
 `
