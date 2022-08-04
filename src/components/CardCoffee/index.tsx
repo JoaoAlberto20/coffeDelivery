@@ -1,8 +1,17 @@
-import { ContainerCard, ContainerCardTag, ContainerTitle } from './styles'
+import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
+import {
+  ButtonCart,
+  ContainerAddCart,
+  ContainerButtonPLuxMinus,
+  ContainerCard,
+  ContainerImagemTag,
+  ContainerPriceCart,
+  ContainerTitle,
+} from './styles'
 
 interface CardCoffeeProps {
   id: number
-  price: number
+  price: string
   name: string
   description: string
   tag: Array<string>
@@ -17,17 +26,41 @@ export function CardCoffee({
   tag,
   image,
 }: CardCoffeeProps) {
+  console.log(image)
   return (
     <ContainerCard>
-      <ContainerCardTag>
+      <ContainerImagemTag>
         <img src={image} alt="name" />
-        <span>{tag.map((tag) => tag)}</span>
-      </ContainerCardTag>
+        <div>
+          {tag.map((tag, index) => (
+            <span key={index}>{tag}</span>
+          ))}
+        </div>
+      </ContainerImagemTag>
       <ContainerTitle>
         <h3>{name}</h3>
         <span>{description}</span>
       </ContainerTitle>
-      <span>{price}</span>
+      <ContainerPriceCart>
+        <h3>
+          <span>R$</span>
+          {price}
+        </h3>
+        <ContainerAddCart>
+          <ContainerButtonPLuxMinus>
+            <button title="Diminuir a quantidade do produto carinho carrinho">
+              <Minus size={14} weight="fill" />
+            </button>
+            <span>1</span>
+            <button title="Aumentar a quantidade do produto no carrinho">
+              <Plus size={14} weight="fill" />
+            </button>
+          </ContainerButtonPLuxMinus>
+          <ButtonCart title="Adicionando o produto no carrinho">
+            <ShoppingCartSimple weight="fill" />
+          </ButtonCart>
+        </ContainerAddCart>
+      </ContainerPriceCart>
     </ContainerCard>
   )
 }
