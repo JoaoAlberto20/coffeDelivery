@@ -1,5 +1,7 @@
 import { MapPin, ShoppingCart } from 'phosphor-react'
+import { useLocation } from 'react-router-dom'
 import logo from '../../assets/Logo.png'
+import { useCountQuantityProduct } from '../../Hook/CountQuantityProduct'
 import {
   ContainerHeader,
   ContainerLinkCart,
@@ -8,6 +10,9 @@ import {
 } from './styles'
 
 export function Header() {
+  const { pathname } = useLocation()
+  const { quantityOfProduct } = useCountQuantityProduct()
+
   return (
     <ContainerHeader>
       <img src={logo} alt="" />
@@ -20,6 +25,7 @@ export function Header() {
 
         <ContainerLinkCart to="/checkout">
           <ShoppingCart size={24} weight="fill" />
+          {pathname === '/checkout' && <span>{quantityOfProduct}</span>}
         </ContainerLinkCart>
       </ContainerNav>
     </ContainerHeader>

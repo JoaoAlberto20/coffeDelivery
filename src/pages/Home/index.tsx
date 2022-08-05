@@ -1,10 +1,13 @@
 import { ContainerHome, ContainerListCard, ContainerListCoffee } from './styles'
 
+import { useContext } from 'react'
 import { Banner } from '../../components/Banner'
 import { CardCoffee } from '../../components/CardCoffee'
+import { CoffeeContext } from '../../Contexts/COffeeContext'
 import { coffeeList } from '../../utils'
 
 export function Home() {
+  const { addCart, descresseCoffeeCart } = useContext(CoffeeContext)
   return (
     <ContainerHome>
       <Banner />
@@ -14,12 +17,9 @@ export function Home() {
           {coffeeList.map((listCoffee) => (
             <CardCoffee
               key={listCoffee.id}
-              id={listCoffee.id}
-              name={listCoffee.name}
-              price={listCoffee.price}
-              description={listCoffee.description}
-              image={listCoffee.image}
-              tag={listCoffee.tag}
+              item={listCoffee}
+              addCart={addCart}
+              descresseCoffeeCart={descresseCoffeeCart}
             />
           ))}
         </ContainerListCard>

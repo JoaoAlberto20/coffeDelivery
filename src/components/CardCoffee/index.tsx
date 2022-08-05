@@ -1,4 +1,6 @@
 import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
+import { CreatePropsData } from '../../Contexts/COffeeContext'
+import { useCountQuantityProduct } from '../../Hook/CountQuantityProduct'
 import {
   ButtonCart,
   ContainerAddCart,
@@ -10,52 +12,65 @@ import {
 } from './styles'
 
 interface CardCoffeeProps {
-  id: number
-  price: string
-  name: string
-  description: string
-  tag: string[]
-  image: string
+  item: CreatePropsData
+  addCart: (data: CreatePropsData) => void
+  descresseCoffeeCart: (data: CreatePropsData) => void
 }
 
 export function CardCoffee({
-  id,
-  price,
-  name,
-  description,
-  tag,
-  image,
+  item,
+  addCart,
+  descresseCoffeeCart,
 }: CardCoffeeProps) {
+  const { quantity } = useCountQuantityProduct(item.id)
+
+  const handleAddCoffeeCart = () => {
+    addCart(item)
+  }
+
+  const handleDecreaseCoffeeCart = () => {
+    descresseCoffeeCart(item)
+  }
+
   return (
     <ContainerCard>
       <ContainerImagemTag>
-        <img src={image} alt="name" />
+        <img src={item.image} alt="name" />
         <div>
-          {tag.map((tag, index) => (
+          {item.tag.map((tag, index) => (
             <span key={index}>{tag}</span>
           ))}
         </div>
       </ContainerImagemTag>
       <ContainerTitle>
-        <h3>{name}</h3>
-        <span>{description}</span>
+        <h3>{item.name}</h3>
+        <span>{item.description}</span>
       </ContainerTitle>
       <ContainerPriceCart>
         <h3>
           <span>R$</span>
-          {price}
+          {item.price}
         </h3>
         <ContainerAddCart>
           <ContainerButtonPLuxMinus>
-            <button title="Diminuir a quantidade do produto carinho carrinho">
+            <button
+              title="Diminuir a quantidade do produto carinho carrinho"
+              onClick={handleDecreaseCoffeeCart}
+            >
               <Minus size={14} weight="fill" />
             </button>
-            <span>1</span>
-            <button title="Aumentar a quantidade do produto no carrinho">
+            <span>{quantity}</span>
+            <button
+              title="Aumentar a quantidade do produto no carrinho"
+              onClick={handleAddCoffeeCart}
+            >
               <Plus size={14} weight="fill" />
             </button>
           </ContainerButtonPLuxMinus>
-          <ButtonCart title="Adicionando o produto no carrinho">
+          <ButtonCart
+            title="Adicionando o produto no carrinho"
+            onClick={handleAddCoffeeCart}
+          >
             <ShoppingCartSimple weight="fill" />
           </ButtonCart>
         </ContainerAddCart>
