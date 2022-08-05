@@ -4,6 +4,11 @@ export const ContainerBanner = styled.section`
   display: flex;
   padding: 5.875rem 0 6.75rem 0;
   gap: 3.5rem;
+
+  @media (max-width: 920px) {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
 `
 
 export const ContainerTitle = styled.div`
@@ -64,4 +69,9 @@ export const Items = styled.span<BgProps>`
     border-radius: 1000px;
     color: ${(props) => props.theme.white};
   }
+`
+
+export const ContainerImg = styled.div`
+  /* width: 100%;
+  object-fit: contain; */
 `

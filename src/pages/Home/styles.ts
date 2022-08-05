@@ -24,4 +24,8 @@ export const ContainerListCard = styled.div`
   margin-top: 3.375rem;
   margin-bottom: 9.8125rem;
   gap: 2rem;
+
+  @media (max-width: 920px) {
+    justify-content: center;
+  }
 `

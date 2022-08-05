@@ -43,9 +43,17 @@ export const ContainerComplementNumber = styled.div`
       right: 20px;
     }
   }
+
+  @media (max-width: 920px) {
+    grid-template-columns: 1fr;
+  }
 `
 export const ContainerDistrictCity = styled.div`
   display: grid;
   grid-template-columns: 200px 1fr 60px;
   gap: 0.75rem;
+
+  @media (max-width: 920px) {
+    grid-template-columns: 1fr;
+  }
 `

@@ -1,6 +1,7 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import {
   ContainerBanner,
+  ContainerImg,
   ContainerItems,
   ContainerTitle,
   Items,
@@ -37,9 +38,9 @@ export function Banner() {
           </Items>
         </ContainerItems>
       </div>
-      <div>
+      <ContainerImg>
         <img src={banner} alt="" />
-      </div>
+      </ContainerImg>
     </ContainerBanner>
   )
 }
