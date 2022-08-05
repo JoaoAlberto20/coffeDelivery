@@ -14,7 +14,7 @@ interface CardCoffeeProps {
   price: string
   name: string
   description: string
-  tag: Array<string>
+  tag: string[]
   image: string
 }
 
@@ -26,7 +26,6 @@ export function CardCoffee({
   tag,
   image,
 }: CardCoffeeProps) {
-  console.log(image)
   return (
     <ContainerCard>
       <ContainerImagemTag>

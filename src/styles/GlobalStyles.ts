@@ -11,12 +11,6 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
 
-  :focus {
-    outline: 0;
-    box-shadow: 0 0 0 2px ${(props) => props.theme['yellow-dark']}; 
-  }
-
-
   body {
     background: ${(props) => props.theme['base-background']};
     color: ${(props) => props.theme['base-text']};

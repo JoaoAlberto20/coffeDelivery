@@ -4,6 +4,9 @@ export const ContainerCard = styled.div`
   position: relative;
   padding: 0 1.25rem 1.25rem 1.25rem;
   height: 19.375rem;
+  background: ${(props) => props.theme['base-card']};
+  border-radius: 36px;
+  width: 16rem;
 `
 
 export const ContainerImagemTag = styled.div`
