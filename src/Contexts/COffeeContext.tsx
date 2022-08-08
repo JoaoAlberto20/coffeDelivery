@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 export interface CreatePropsData {
   id: number
@@ -10,8 +10,9 @@ export interface CreatePropsData {
 }
 
 interface CoffeeContextTypes {
-  descresseCoffeeCart: (id: CreatePropsData) => void
+  descresseCoffeeCart: (id: number) => void
   addCart: (product: CreatePropsData) => void
+  itemProductDuplicated: CreatePropsData[]
   itemProduct: CreatePropsData[]
 }
 
@@ -22,21 +23,37 @@ interface CoffeeProviderProps {
 }
 
 export function CoffeeProvider({ children }: CoffeeProviderProps) {
+  const [itemProductDuplicated, setItemProductDuplicated] = useState<
+    CreatePropsData[]
+  >([])
   const [itemProduct, setItemProduct] = useState<CreatePropsData[]>([])
 
   const addCart = (product: CreatePropsData) => {
-    setItemProduct((prevState) => [...prevState, product])
+    setItemProductDuplicated((prevState) => [...prevState, product])
   }
 
-  const descresseCoffeeCart = (product: CreatePropsData) => {
-    const itemForRemove = itemProduct.filter((item) => item.id === product.id)
-    console.log(itemForRemove)
+  const descresseCoffeeCart = (id: number) => {
+    const product = itemProductDuplicated.filter((item) => item.id === id)
+    const itemProductRemoved = product.slice(1)
+    setItemProductDuplicated(itemProductRemoved)
   }
+
+  useEffect(() => {
+    const removeProductDuplicated = () => {
+      const filteredArray = itemProductDuplicated.filter(
+        (product, index) => itemProductDuplicated.indexOf(product) === index,
+      )
+      setItemProduct(filteredArray)
+    }
+
+    removeProductDuplicated()
+  }, [itemProductDuplicated])
 
   return (
     <CoffeeContext.Provider
       value={{
         addCart,
+        itemProductDuplicated,
         itemProduct,
         descresseCoffeeCart,
       }}

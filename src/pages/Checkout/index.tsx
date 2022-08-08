@@ -1,8 +1,9 @@
+import { useContext } from 'react'
 import { CardCheckout } from '../../components/CardCheckout'
 import { CheckoutInputs } from '../../components/CheckoutInputs'
 import { MethodPayment } from '../../components/MethodPayment'
 import { TitleCheckout } from '../../components/TitleCheckout'
-import { coffeeList } from '../../utils'
+import { CoffeeContext } from '../../Contexts/COffeeContext'
 import {
   ContainerButton,
   ContainerCart,
@@ -17,6 +18,8 @@ import {
 } from './styles'
 
 export function Checkout() {
+  const { itemProduct } = useContext(CoffeeContext)
+
   return (
     <main>
       <ContainerForm>
@@ -43,7 +46,7 @@ export function Checkout() {
           <h3>Cafés selecionados</h3>
           <ContainerLayout>
             <ContainerListProductCheckout>
-              {coffeeList.map((listCoffee) => (
+              {itemProduct.map((listCoffee) => (
                 <CardCheckout
                   key={listCoffee.id}
                   id={listCoffee.id}
