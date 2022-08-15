@@ -45,6 +45,12 @@ export const ContainerButtonPlusMinRemove = styled.div`
       color: ${(props) => props.theme['base-purple']};
     }
   }
+
+  span {
+    color: ${(props) => props.theme['base-text']};
+    line-height: 130%;
+    font-size: 16px;
+  }
 `
 export const ContainerAddCart = styled.div`
   display: grid;

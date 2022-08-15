@@ -30,7 +30,7 @@ export function Success() {
           </Items>
           <Items bgColor="yellow-dark">
             <CurrencyDollar size={32} weight="fill" />
-            Pagamento na entrega Cartão de Crédito
+            Pagamento na entrega com Cartão de Crédito
           </Items>
         </ContainerInfo>
         <img src={illustration} alt="" />

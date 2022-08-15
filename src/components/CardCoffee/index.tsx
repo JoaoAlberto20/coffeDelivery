@@ -37,7 +37,7 @@ export function CardCoffee({
       <ContainerImagemTag>
         <img src={item.image} alt="name" />
         <div>
-          {item.tag.map((tag, index) => (
+          {item.tag?.map((tag, index) => (
             <span key={index}>{tag}</span>
           ))}
         </div>
@@ -56,6 +56,7 @@ export function CardCoffee({
             <button
               title="Diminuir a quantidade do produto carinho carrinho"
               onClick={handleDecreaseCoffeeCart}
+              type="button"
             >
               <Minus size={14} weight="fill" />
             </button>
@@ -63,6 +64,7 @@ export function CardCoffee({
             <button
               title="Aumentar a quantidade do produto no carrinho"
               onClick={handleAddCoffeeCart}
+              type="button"
             >
               <Plus size={14} weight="fill" />
             </button>
@@ -70,6 +72,7 @@ export function CardCoffee({
           <ButtonCart
             title="Adicionando o produto no carrinho"
             onClick={handleAddCoffeeCart}
+            type="button"
           >
             <ShoppingCartSimple weight="fill" />
           </ButtonCart>

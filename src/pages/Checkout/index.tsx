@@ -1,9 +1,14 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import { useContext } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as yup from 'yup'
+
 import { CardCheckout } from '../../components/CardCheckout'
-import { CheckoutInputs } from '../../components/CheckoutInputs'
+import { FormCheckout } from '../../components/FormCheckout'
 import { MethodPayment } from '../../components/MethodPayment'
 import { TitleCheckout } from '../../components/TitleCheckout'
 import { CoffeeContext } from '../../Contexts/COffeeContext'
+
 import {
   ContainerButton,
   ContainerCart,
@@ -17,12 +22,49 @@ import {
   ContainerTotalPrice,
 } from './styles'
 
+const SchemaForm = yup.object().shape({
+  cep: yup
+    .string()
+    .matches(/\d{5}-\d{3}/, 'O cep deve ser nesse formato 00000-000')
+    .required(),
+  logradouro: yup.string().required('Por favor! digite seu Logradouro'),
+  number: yup.string().required('Por favor! digite seu número'),
+  complemento: yup.string().optional(),
+  street: yup.string().required('Por favor! digite sua rua'),
+  city: yup.string().required('Por favor! digite seu cidade'),
+  UF: yup
+    .string()
+    .min(2, 'Digite Apena 2 caracteres')
+    .uppercase('A siglá deve ser em letra maiúscula')
+    .required('Por favor! digite seu estado'),
+})
+
+type NewFormData = yup.InferType<typeof SchemaForm>
+
 export function Checkout() {
-  const { itemProduct } = useContext(CoffeeContext)
+  const {
+    itemProduct,
+    addCart,
+    descresseCoffeeCart,
+    removeProductTotal,
+    totalPrice,
+    totalPriceItems,
+  } = useContext(CoffeeContext)
+
+  const newForm = useForm<NewFormData>({
+    resolver: yupResolver(SchemaForm),
+  })
+
+  const { handleSubmit, reset } = newForm
+
+  const handleCreateForm = (data: NewFormData) => {
+    console.log(data)
+    reset()
+  }
 
   return (
     <main>
-      <ContainerForm>
+      <ContainerForm onSubmit={handleSubmit(handleCreateForm)}>
         <ContainerInfo>
           <h3>Complete seu pedido</h3>
           <ContainerLayout>
@@ -31,7 +73,9 @@ export function Checkout() {
               paragraph="Informe o endereço onde deseja receber seu pedido"
               icon="MappinInline"
             />
-            <CheckoutInputs />
+            <FormProvider {...newForm}>
+              <FormCheckout />
+            </FormProvider>
           </ContainerLayout>
           <ContainerLayout>
             <TitleCheckout
@@ -46,13 +90,20 @@ export function Checkout() {
           <h3>Cafés selecionados</h3>
           <ContainerLayout>
             <ContainerListProductCheckout>
+              {!itemProduct.length && (
+                <div>
+                  <span>
+                    Você ainda não tem nenhum produto adicionando ao carrinho
+                  </span>
+                </div>
+              )}
               {itemProduct.map((listCoffee) => (
                 <CardCheckout
                   key={listCoffee.id}
-                  id={listCoffee.id}
-                  name={listCoffee.name}
-                  image={listCoffee.image}
-                  price={listCoffee.price}
+                  item={listCoffee}
+                  addCart={addCart}
+                  descresseCoffeeCart={descresseCoffeeCart}
+                  removeProductTotal={removeProductTotal}
                 />
               ))}
             </ContainerListProductCheckout>
@@ -60,7 +111,7 @@ export function Checkout() {
             <ContainerPrice>
               <ContainerTotalItens>
                 <p>Total de itens</p>
-                <span>R$ 29,70</span>
+                <span>{`R$ ${totalPriceItems.toFixed(2)}`}</span>
               </ContainerTotalItens>
               <ContainerDelivery>
                 <p>Entrega</p>
@@ -69,7 +120,7 @@ export function Checkout() {
 
               <ContainerTotalPrice>
                 <h3>Total</h3>
-                <span>R$ 33,20</span>
+                <span>{`${totalPrice.toFixed(2)}`}</span>
               </ContainerTotalPrice>
             </ContainerPrice>
             <ContainerButton>

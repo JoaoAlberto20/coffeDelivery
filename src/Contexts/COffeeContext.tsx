@@ -1,19 +1,22 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 
 export interface CreatePropsData {
   id: number
   price: string
   name: string
-  description: string
-  tag: string[]
+  description?: string
+  tag?: string[]
   image: string
 }
 
 interface CoffeeContextTypes {
   descresseCoffeeCart: (id: number) => void
   addCart: (product: CreatePropsData) => void
+  removeProductTotal: (id: number) => void
   itemProductDuplicated: CreatePropsData[]
   itemProduct: CreatePropsData[]
+  totalPrice: number
+  totalPriceItems: number
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextTypes)
@@ -26,7 +29,6 @@ export function CoffeeProvider({ children }: CoffeeProviderProps) {
   const [itemProductDuplicated, setItemProductDuplicated] = useState<
     CreatePropsData[]
   >([])
-  const [itemProduct, setItemProduct] = useState<CreatePropsData[]>([])
 
   const addCart = (product: CreatePropsData) => {
     setItemProductDuplicated((prevState) => [...prevState, product])
@@ -34,20 +36,29 @@ export function CoffeeProvider({ children }: CoffeeProviderProps) {
 
   const descresseCoffeeCart = (id: number) => {
     const product = itemProductDuplicated.filter((item) => item.id === id)
-    const itemProductRemoved = product.slice(1)
-    setItemProductDuplicated(itemProductRemoved)
+    if (product.length > 1) {
+      const itemProductRemoved = product.slice(1)
+      setItemProductDuplicated(itemProductRemoved)
+    }
   }
 
-  useEffect(() => {
-    const removeProductDuplicated = () => {
-      const filteredArray = itemProductDuplicated.filter(
-        (product, index) => itemProductDuplicated.indexOf(product) === index,
-      )
-      setItemProduct(filteredArray)
-    }
+  const removeProductTotal = (id: number) => {
+    const product = itemProductDuplicated.filter((item) => item.id !== id)
+    setItemProductDuplicated(product)
+  }
 
-    removeProductDuplicated()
-  }, [itemProductDuplicated])
+  const itemProduct = itemProductDuplicated.filter(
+    (product, index) => itemProductDuplicated.indexOf(product) === index,
+  )
+
+  const totalPriceItems = Number(
+    itemProductDuplicated
+      .reduce((acc, curr) => acc + Number(curr.price), 0)
+      .toFixed(2),
+  )
+
+  const totalPrice =
+    totalPriceItems !== 0 ? totalPriceItems + 3.29 : totalPriceItems
 
   return (
     <CoffeeContext.Provider
@@ -56,6 +67,9 @@ export function CoffeeProvider({ children }: CoffeeProviderProps) {
         itemProductDuplicated,
         itemProduct,
         descresseCoffeeCart,
+        removeProductTotal,
+        totalPrice,
+        totalPriceItems,
       }}
     >
       {children}
