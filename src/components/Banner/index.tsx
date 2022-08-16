@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import {
   ContainerBanner,

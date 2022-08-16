@@ -1,4 +1,5 @@
 import { MapPin, ShoppingCart } from 'phosphor-react'
+import { memo } from 'react'
 import { useLocation } from 'react-router-dom'
 import logo from '../../assets/Logo.png'
 import { useCountQuantityProduct } from '../../Hook/CountQuantityProduct'
@@ -9,7 +10,7 @@ import {
   ContainerNav,
 } from './styles'
 
-export function Header() {
+function Header() {
   const { pathname } = useLocation()
   const { quantityOfProduct } = useCountQuantityProduct()
 
@@ -31,3 +32,5 @@ export function Header() {
     </ContainerHeader>
   )
 }
+
+export default memo(Header)

@@ -23,9 +23,23 @@ interface CoffeeProviderProps {
 }
 
 export function CoffeeProvider({ children }: CoffeeProviderProps) {
-  const [stateInitial, dispatch] = useReducer(coffeeReducer, {
-    itemProductDuplicated: [],
-  })
+  const [stateInitial, dispatch] = useReducer(
+    coffeeReducer,
+    {
+      itemProductDuplicated: [],
+    },
+    () => {
+      const storedStateAsJSON = localStorage.getItem(
+        '@ignite-cart-coffee-delivery-1.0.0',
+      )
+
+      if (storedStateAsJSON) {
+        return JSON.parse(storedStateAsJSON)
+      } else {
+        return { itemProductDuplicated: [] }
+      }
+    },
+  )
 
   const { itemProductDuplicated } = stateInitial
 
