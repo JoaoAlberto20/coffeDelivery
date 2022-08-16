@@ -13,6 +13,13 @@ export function addCoffeeCart(dataNewCoffee: CreatePropsData) {
   }
 }
 
+export function decrementCoffeeCart(dataNewCoffee: CreatePropsData[]) {
+  return {
+    type: ActionTypes.DECREMENT_COFFEE_CART,
+    payload: dataNewCoffee,
+  }
+}
+
 export function removeCoffeeCart(id: number) {
   return {
     type: ActionTypes.REMOVE_COFFEE_CART,

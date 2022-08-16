@@ -8,7 +8,7 @@ export function ListCoffee() {
   const { addCart, descresseCoffeeCart } = useContext(CoffeeContext)
   return (
     <ContainerListCard>
-      {coffeeList.map((listCoffee) => (
+      {coffeeList.map((listCoffee, i) => (
         <CardCoffee
           key={listCoffee.id}
           item={listCoffee}

@@ -12,7 +12,7 @@ import {
 interface CardCheckoutProps {
   item: CreatePropsData
   addCart: (data: CreatePropsData) => void
-  descresseCoffeeCart: (id: number) => void
+  descresseCoffeeCart: (item: CreatePropsData) => void
   removeProductTotal: (id: number) => void
 }
 
@@ -29,7 +29,7 @@ export function CardCheckout({
   }
 
   const handleDecreaseCoffeeCart = () => {
-    descresseCoffeeCart(item.id)
+    descresseCoffeeCart(item)
   }
 
   const handleRemoveItemCart = () => {

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { produce } from 'immer'
 
 import { ActionTypes } from './action'
@@ -24,17 +23,12 @@ export function coffeeReducer(state: stateInitial, action: any) {
       })
     case ActionTypes.DECREMENT_COFFEE_CART:
       return produce(state, (draft) => {
-        const productPrevState = draft.itemProductDuplicated.filter(
-          (product, index) => product.id !== action.payload.id,
-        )
-        const productItemRemoved = draft.itemProductDuplicated
-        .filter((product, index) => product.id === action.payload.id)
-        .slice(1)
+        draft.itemProductDuplicated = action.payload
       })
-    case ActionTypes.REMOVE_COFFEE_CART: 
+    case ActionTypes.REMOVE_COFFEE_CART:
       return produce(state, (draft) => {
         const removed = draft.itemProductDuplicated.filter(
-          (product, index) => product.id !== action.payload.id,
+          (product) => product.id !== action.payload.id,
         )
         draft.itemProductDuplicated = removed
       })

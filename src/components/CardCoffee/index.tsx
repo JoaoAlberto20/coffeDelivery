@@ -14,7 +14,7 @@ import {
 interface CardCoffeeProps {
   item: CreatePropsData
   addCart: (data: CreatePropsData) => void
-  descresseCoffeeCart: (id: number) => void
+  descresseCoffeeCart: (item: CreatePropsData) => void
 }
 
 export function CardCoffee({
@@ -29,7 +29,7 @@ export function CardCoffee({
   }
 
   const handleDecreaseCoffeeCart = () => {
-    descresseCoffeeCart(item.id)
+    descresseCoffeeCart(item)
   }
 
   return (

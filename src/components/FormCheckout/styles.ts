@@ -5,22 +5,9 @@ export const ContainerInput = styled.div`
   flex-direction: column;
   gap: 0.95rem;
   margin-top: 2rem;
-`
 
-export const Input = styled.input`
-  padding: 0.75rem;
-  height: 2.625rem;
-  background: ${(props) => props.theme['base-input']};
-  border: 0;
-  border-radius: 4px;
-  font-size: 0.875rem;
-
-  &:placeholder-shown {
-    color: ${(props) => props.theme['base-label']};
-  }
-
-  &:not(:placeholder-shown) {
-    color: ${(props) => props.theme['base-text']};
+  & > label {
+    width: 12.5rem;
   }
 `
 

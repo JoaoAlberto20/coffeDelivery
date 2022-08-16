@@ -1,9 +1,13 @@
 import { createContext, ReactNode, useEffect, useReducer } from 'react'
-import { addCoffeeCart, removeCoffeeCart } from '../reducers/action'
+import {
+  addCoffeeCart,
+  decrementCoffeeCart,
+  removeCoffeeCart,
+} from '../reducers/action'
 import { coffeeReducer, CreatePropsData } from '../reducers/reducer'
 
 interface CoffeeContextTypes {
-  descresseCoffeeCart: (id: number) => void
+  descresseCoffeeCart: (item: CreatePropsData) => void
   addCart: (product: CreatePropsData) => void
   removeProductTotal: (id: number) => void
   itemProductDuplicated: CreatePropsData[]
@@ -29,7 +33,14 @@ export function CoffeeProvider({ children }: CoffeeProviderProps) {
     dispatch(addCoffeeCart(product))
   }
 
-  const descresseCoffeeCart = (id: number) => {}
+  const descresseCoffeeCart = (item: CreatePropsData) => {
+    const newCart = [...itemProductDuplicated]
+    const indexProduct = newCart.indexOf(item)
+    const cartRemoved = newCart.filter(
+      (_product, index) => index !== indexProduct,
+    )
+    dispatch(decrementCoffeeCart(cartRemoved))
+  }
 
   const removeProductTotal = (id: number) => {
     dispatch(removeCoffeeCart(id))

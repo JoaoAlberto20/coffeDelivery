@@ -31,8 +31,8 @@ export function MethodPayment() {
     <Container>
       <TitleCheckout
         title="Endereço de Entrega"
-        paragraph="Informe o endereço onde deseja receber seu pedido"
-        icon="MappinInline"
+        paragraph="O pagamento é feito na entrega. Escolha a forma que deseja pagar"
+        icon="CurrencyDollar"
       />
       <PaymentMethodOptionsContainer>
         {Object.entries(paymentMethods).map(([key, { label, icon }]) => (

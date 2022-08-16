@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
-import { NavLink } from 'react-router-dom'
 import * as Zod from 'zod'
 
 import { InfoCheckout } from './components/InfoCheckout'
@@ -78,11 +77,9 @@ export function Checkout() {
             <ListCheckoutCard />
             <TotalPrice />
             <ContainerButton>
-              <NavLink to="/success">
-                <button type="submit" disabled={isSubmitDisable}>
-                  confirmar pedido
-                </button>
-              </NavLink>
+              <button type="submit" disabled={isSubmitDisable}>
+                confirmar pedido
+              </button>
             </ContainerButton>
           </ContainerLayout>
         </ContainerCart>
