@@ -1,6 +1,6 @@
 import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
-import { CreatePropsData } from '../../Contexts/COffeeContext'
 import { useCountQuantityProduct } from '../../Hook/CountQuantityProduct'
+import { CreatePropsData } from '../../reducers/reducer'
 import {
   ButtonCart,
   ContainerAddCart,

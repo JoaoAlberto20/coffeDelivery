@@ -1,130 +1,88 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useContext } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
-import * as yup from 'yup'
+import { NavLink } from 'react-router-dom'
+import * as Zod from 'zod'
 
-import { CardCheckout } from '../../components/CardCheckout'
-import { FormCheckout } from '../../components/FormCheckout'
-import { MethodPayment } from '../../components/MethodPayment'
-import { TitleCheckout } from '../../components/TitleCheckout'
-import { CoffeeContext } from '../../Contexts/COffeeContext'
+import { InfoCheckout } from './components/InfoCheckout'
+import { ListCheckoutCard } from './components/ListCheckoutCard'
+import { MethodPayment } from './components/MethodPayment/'
+import { TotalPrice } from './components/TotalPrice'
 
 import {
   ContainerButton,
   ContainerCart,
-  ContainerDelivery,
   ContainerForm,
   ContainerInfo,
   ContainerLayout,
-  ContainerListProductCheckout,
-  ContainerPrice,
-  ContainerTotalItens,
-  ContainerTotalPrice,
 } from './styles'
 
-const SchemaForm = yup.object().shape({
-  cep: yup
-    .string()
-    .matches(/\d{5}-\d{3}/, 'O cep deve ser nesse formato 00000-000')
-    .required(),
-  logradouro: yup.string().required('Por favor! digite seu Logradouro'),
-  number: yup.string().required('Por favor! digite seu número'),
-  complemento: yup.string().optional(),
-  street: yup.string().required('Por favor! digite sua rua'),
-  city: yup.string().required('Por favor! digite seu cidade'),
-  UF: yup
-    .string()
-    .min(2, 'Digite Apena 2 caracteres')
-    .uppercase('A siglá deve ser em letra maiúscula')
-    .required('Por favor! digite seu estado'),
+enum PaymentMethods {
+  credit = 'credit',
+  debit = 'debit',
+  money = 'money',
+}
+
+const SchemaForm = Zod.object({
+  cep: Zod.string().min(1, 'Informe o Cep'),
+  street: Zod.string().min(1, 'Informe a Rua'),
+  number: Zod.string().min(1, 'Informe o número do Endereço'),
+  complemento: Zod.string().optional(),
+  district: Zod.string().min(1, 'Informe o Bairro'),
+  city: Zod.string().min(1, 'Informe a Cidade'),
+  UF: Zod.string().min(1, 'Informe o UF'),
+  paymentMethod: Zod.nativeEnum(PaymentMethods, {
+    errorMap: () => {
+      return { message: 'Informe o método de pagamento' }
+    },
+  }),
 })
 
-type NewFormData = yup.InferType<typeof SchemaForm>
+type NewFormData = Zod.infer<typeof SchemaForm>
 
 export function Checkout() {
-  const {
-    itemProduct,
-    addCart,
-    descresseCoffeeCart,
-    removeProductTotal,
-    totalPrice,
-    totalPriceItems,
-  } = useContext(CoffeeContext)
-
   const newForm = useForm<NewFormData>({
-    resolver: yupResolver(SchemaForm),
+    resolver: zodResolver(SchemaForm),
+    defaultValues: {
+      cep: '',
+      street: '',
+      number: '',
+      complemento: '',
+      district: '',
+      city: '',
+      UF: '',
+      paymentMethod: undefined,
+    },
   })
 
-  const { handleSubmit, reset } = newForm
+  const { handleSubmit, reset, watch } = newForm
 
   const handleCreateForm = (data: NewFormData) => {
-    console.log(data)
     reset()
   }
+
+  const isSubmitDisable = !watch('paymentMethod')
 
   return (
     <main>
       <ContainerForm onSubmit={handleSubmit(handleCreateForm)}>
-        <ContainerInfo>
-          <h3>Complete seu pedido</h3>
-          <ContainerLayout>
-            <TitleCheckout
-              title="Endereço de Entrega"
-              paragraph="Informe o endereço onde deseja receber seu pedido"
-              icon="MappinInline"
-            />
-            <FormProvider {...newForm}>
-              <FormCheckout />
-            </FormProvider>
-          </ContainerLayout>
-          <ContainerLayout>
-            <TitleCheckout
-              title="Endereço de Entrega"
-              paragraph="Informe o endereço onde deseja receber seu pedido"
-              icon="CurrencyDollar"
-            />
+        <FormProvider {...newForm}>
+          <ContainerInfo>
+            <h3>Complete seu pedido</h3>
+            <InfoCheckout />
             <MethodPayment />
-          </ContainerLayout>
-        </ContainerInfo>
+          </ContainerInfo>
+        </FormProvider>
         <ContainerCart>
           <h3>Cafés selecionados</h3>
           <ContainerLayout>
-            <ContainerListProductCheckout>
-              {!itemProduct.length && (
-                <div>
-                  <span>
-                    Você ainda não tem nenhum produto adicionando ao carrinho
-                  </span>
-                </div>
-              )}
-              {itemProduct.map((listCoffee) => (
-                <CardCheckout
-                  key={listCoffee.id}
-                  item={listCoffee}
-                  addCart={addCart}
-                  descresseCoffeeCart={descresseCoffeeCart}
-                  removeProductTotal={removeProductTotal}
-                />
-              ))}
-            </ContainerListProductCheckout>
-
-            <ContainerPrice>
-              <ContainerTotalItens>
-                <p>Total de itens</p>
-                <span>{`R$ ${totalPriceItems.toFixed(2)}`}</span>
-              </ContainerTotalItens>
-              <ContainerDelivery>
-                <p>Entrega</p>
-                <span>R$ 3,29</span>
-              </ContainerDelivery>
-
-              <ContainerTotalPrice>
-                <h3>Total</h3>
-                <span>{`${totalPrice.toFixed(2)}`}</span>
-              </ContainerTotalPrice>
-            </ContainerPrice>
+            <ListCheckoutCard />
+            <TotalPrice />
             <ContainerButton>
-              <button type="submit">confirmar pedido</button>
+              <NavLink to="/success">
+                <button type="submit" disabled={isSubmitDisable}>
+                  confirmar pedido
+                </button>
+              </NavLink>
             </ContainerButton>
           </ContainerLayout>
         </ContainerCart>

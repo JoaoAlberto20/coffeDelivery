@@ -5,6 +5,13 @@ export const ContainerCard = styled.div`
   justify-content: space-between;
   padding: 0.5rem 0.25rem;
   position: relative;
+  border-bottom: 1px solid ${({ theme }) => theme['base-button']};
+
+  P {
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
 `
 
 export const ContainerButtonImageTitle = styled.div`

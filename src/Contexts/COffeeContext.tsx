@@ -1,13 +1,6 @@
-import { createContext, ReactNode, useState } from 'react'
-
-export interface CreatePropsData {
-  id: number
-  price: string
-  name: string
-  description?: string
-  tag?: string[]
-  image: string
-}
+import { createContext, ReactNode, useEffect, useReducer } from 'react'
+import { addCoffeeCart, removeCoffeeCart } from '../reducers/action'
+import { coffeeReducer, CreatePropsData } from '../reducers/reducer'
 
 interface CoffeeContextTypes {
   descresseCoffeeCart: (id: number) => void
@@ -26,25 +19,20 @@ interface CoffeeProviderProps {
 }
 
 export function CoffeeProvider({ children }: CoffeeProviderProps) {
-  const [itemProductDuplicated, setItemProductDuplicated] = useState<
-    CreatePropsData[]
-  >([])
+  const [stateInitial, dispatch] = useReducer(coffeeReducer, {
+    itemProductDuplicated: [],
+  })
+
+  const { itemProductDuplicated } = stateInitial
 
   const addCart = (product: CreatePropsData) => {
-    setItemProductDuplicated((prevState) => [...prevState, product])
+    dispatch(addCoffeeCart(product))
   }
 
-  const descresseCoffeeCart = (id: number) => {
-    const product = itemProductDuplicated.filter((item) => item.id === id)
-    if (product.length > 1) {
-      const itemProductRemoved = product.slice(1)
-      setItemProductDuplicated(itemProductRemoved)
-    }
-  }
+  const descresseCoffeeCart = (id: number) => {}
 
   const removeProductTotal = (id: number) => {
-    const product = itemProductDuplicated.filter((item) => item.id !== id)
-    setItemProductDuplicated(product)
+    dispatch(removeCoffeeCart(id))
   }
 
   const itemProduct = itemProductDuplicated.filter(
@@ -59,6 +47,12 @@ export function CoffeeProvider({ children }: CoffeeProviderProps) {
 
   const totalPrice =
     totalPriceItems !== 0 ? totalPriceItems + 3.29 : totalPriceItems
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(stateInitial)
+
+    localStorage.setItem('@ignite-cart-coffee-delivery-1.0.0', stateJSON)
+  }, [stateInitial])
 
   return (
     <CoffeeContext.Provider

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.95rem;
   margin-top: 2rem;
 `
 

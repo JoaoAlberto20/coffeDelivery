@@ -1,6 +1,6 @@
 import { Minus, Plus, Trash } from 'phosphor-react'
-import { CreatePropsData } from '../../Contexts/COffeeContext'
 import { useCountQuantityProduct } from '../../Hook/CountQuantityProduct'
+import { CreatePropsData } from '../../reducers/reducer'
 import {
   ButtonCart,
   ContainerAddCart,
@@ -71,10 +71,7 @@ export function CardCheckout({
           </ContainerAddCart>
         </div>
       </ContainerButtonImageTitle>
-      <p>
-        <span>R$</span>
-        {item.price}
-      </p>
+      <p>{`R$ ${item.price}`}</p>
     </ContainerCard>
   )
 }

@@ -1,29 +1,54 @@
 import { useFormContext } from 'react-hook-form'
+import { Input } from '../Input'
 import {
   ContainerComplementNumber,
   ContainerDistrictCity,
   ContainerInput,
-  Input,
 } from './styles'
 
-export function FormCheckout() {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext()
+interface ErrosTypes {
+  errors: {
+    [key: string]: {
+      message: string
+    }
+  }
+}
 
-  console.log(errors)
+export function FormCheckout() {
+  const { register, formState } = useFormContext()
+
+  const { errors } = formState as unknown as ErrosTypes
 
   return (
     <ContainerInput>
-      <Input type="text" placeholder="CEP" {...register('cep')} />
-      <Input type="text" placeholder="Rua" {...register('street')} />
+      <Input
+        error={errors.cep?.message}
+        isError={!errors.cep?.message}
+        type="text"
+        placeholder="Cep"
+        {...register('cep')}
+      />
+      <Input
+        error={errors.street?.message}
+        isError={!errors.street?.message}
+        type="text"
+        placeholder="Rua"
+        {...register('street')}
+      />
 
       <ContainerComplementNumber>
-        <Input type="text" placeholder="Número" {...register('number')} />
+        <Input
+          error={errors.number?.message}
+          isError={!errors.number?.message}
+          type="text"
+          placeholder="Número"
+          {...register('number')}
+        />
 
         <div>
           <Input
+            error={errors.complemento?.message}
+            isError={!errors.complemento?.message}
             type="text"
             placeholder="Complemento"
             {...register('complemento')}
@@ -32,9 +57,27 @@ export function FormCheckout() {
         </div>
       </ContainerComplementNumber>
       <ContainerDistrictCity>
-        <Input type="text" placeholder="Bairro" {...register('logradouro')} />
-        <Input type="text" placeholder="Cidade" {...register('city')} />
-        <Input type="text" placeholder="UF" {...register('UF')} />
+        <Input
+          error={errors.district?.message}
+          isError={!errors.district?.message}
+          type="text"
+          placeholder="Bairro"
+          {...register('district')}
+        />
+        <Input
+          error={errors.city?.message}
+          isError={!errors.city?.message}
+          type="text"
+          placeholder="Cidade"
+          {...register('city')}
+        />
+        <Input
+          error={errors.UF?.message}
+          isError={!errors.UF?.message}
+          type="text"
+          placeholder="UF"
+          {...register('UF')}
+        />
       </ContainerDistrictCity>
     </ContainerInput>
   )
