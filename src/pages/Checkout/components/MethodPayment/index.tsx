@@ -4,20 +4,20 @@ import { ButtonsPayment } from '../../../../components/ButtonsPayment'
 import { TitleCheckout } from '../../../../components/TitleCheckout'
 import { Container, HelperText, PaymentMethodOptionsContainer } from './styles'
 
-export const paymentMethods = {
-  credit: {
+export const paymentMethods = [
+  {
     label: 'Cartão de crédito',
     icon: <CreditCard size={16} />,
   },
-  debit: {
+  {
     label: 'Cartão de débito',
     icon: <Bank size={16} />,
   },
-  money: {
+  {
     label: 'Dinheiro',
     icon: <Money size={16} />,
   },
-}
+]
 
 export function MethodPayment() {
   const {
@@ -35,13 +35,13 @@ export function MethodPayment() {
         icon="CurrencyDollar"
       />
       <PaymentMethodOptionsContainer>
-        {Object.entries(paymentMethods).map(([key, { label, icon }]) => (
+        {paymentMethods.map(({ label, icon }, index) => (
           <ButtonsPayment
-            key={label}
-            id={key}
+            key={index}
+            id={label}
             icon={icon}
             label={label}
-            value={key}
+            value={label}
             {...register('paymentMethod')}
           />
         ))}

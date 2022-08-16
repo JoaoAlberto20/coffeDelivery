@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useEffect, useReducer } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react'
+import { NewFormData } from '../pages/Checkout'
 import {
   addCoffeeCart,
   decrementCoffeeCart,
@@ -10,10 +17,12 @@ interface CoffeeContextTypes {
   descresseCoffeeCart: (item: CreatePropsData) => void
   addCart: (product: CreatePropsData) => void
   removeProductTotal: (id: number) => void
+  getItmSold: (item: NewFormData) => void
   itemProductDuplicated: CreatePropsData[]
   itemProduct: CreatePropsData[]
   totalPrice: number
   totalPriceItems: number
+  itemsSold: NewFormData | null
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextTypes)
@@ -40,6 +49,8 @@ export function CoffeeProvider({ children }: CoffeeProviderProps) {
       }
     },
   )
+
+  const [itemsSold, setItemSold] = useState<NewFormData | null>(null)
 
   const { itemProductDuplicated } = stateInitial
 
@@ -73,6 +84,10 @@ export function CoffeeProvider({ children }: CoffeeProviderProps) {
   const totalPrice =
     totalPriceItems !== 0 ? totalPriceItems + 3.29 : totalPriceItems
 
+  const getItmSold = (item: NewFormData) => {
+    setItemSold(item)
+  }
+
   useEffect(() => {
     const stateJSON = JSON.stringify(stateInitial)
 
@@ -89,6 +104,8 @@ export function CoffeeProvider({ children }: CoffeeProviderProps) {
         removeProductTotal,
         totalPrice,
         totalPriceItems,
+        getItmSold,
+        itemsSold,
       }}
     >
       {children}

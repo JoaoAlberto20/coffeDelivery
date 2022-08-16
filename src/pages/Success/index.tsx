@@ -1,13 +1,19 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
+import { useContext } from 'react'
 import illustration from '../../assets/Illustration.png'
+import { CoffeeContext } from '../../Contexts/COffeeContext'
 import {
   ContainerInfo,
   ContainerInfoDelivery,
   ContainerSuccess,
-  Items,
+  Items
 } from './styles'
 
+// R. Alm. Soído, 271 - Santa Helena, Vitória - ES, 29055-020
+
 export function Success() {
+  const { itemsSold } = useContext(CoffeeContext)
+
   return (
     <ContainerSuccess>
       <div>
@@ -20,8 +26,9 @@ export function Success() {
           <Items bgColor="base-purple">
             <MapPin size={32} weight="fill" />
             <span>
-              Entrega em Rua <strong>João Daniel Martinelli</strong>, 102
-              Farrapos - Porto Alegre, RS
+              Entrega em <strong>{itemsSold?.street}</strong>,{' '}
+              {itemsSold?.number} - {itemsSold?.district} - {itemsSold?.city},{' '}
+              {itemsSold?.UF}, {itemsSold?.cep}
             </span>
           </Items>
           <Items bgColor="base-yellow">
@@ -30,7 +37,7 @@ export function Success() {
           </Items>
           <Items bgColor="yellow-dark">
             <CurrencyDollar size={32} weight="fill" />
-            Pagamento na entrega com Cartão de Crédito
+            {`Pagamento na entrega com ${itemsSold?.paymentMethod}`}
           </Items>
         </ContainerInfo>
         <img src={illustration} alt="" />
