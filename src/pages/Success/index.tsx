@@ -6,7 +6,7 @@ import {
   ContainerInfo,
   ContainerInfoDelivery,
   ContainerSuccess,
-  Items
+  Items,
 } from './styles'
 
 // R. Alm. Soído, 271 - Santa Helena, Vitória - ES, 29055-020
